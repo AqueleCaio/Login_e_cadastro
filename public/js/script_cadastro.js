@@ -25,6 +25,11 @@ $(document).ready(() => {
             data: JSON.stringify({ nome, email, senha }),
             success: function (response) {
                 alert(response.message); // Exibe mensagem de sucesso
+
+                //Apaga os campos preenchidos
+                $('#inome').val('');
+                $('#iemail').val('');
+                $('#isenha').val('');
             },
             error: function (xhr, status, error) {
                 const response = xhr.responseJSON || { error: 'Erro desconhecido' };

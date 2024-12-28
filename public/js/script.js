@@ -11,34 +11,37 @@ $(document).ready(() => {
         $('#' + dataLinha).removeClass('linha_destaque'); 
     });
 
-    // Função para carregar o cadastro dinamicamente
-    $('#cadastro-button').on('click', function () {
-        $('#main-content').load('/cadastro.html', function (response, status, xhr) {
-            if (status === "error") {
-                console.error("Erro ao carregar cadastro:", xhr.status, xhr.statusText);
-            } else {
-                console.log("Cadastro carregado com sucesso!");
-            }
-        });
-    });
-
-    // Armazena os dados inseridos pelo usuário
     $('#form-login').on('submit', function (e) {
         e.preventDefault();
     
-        const email = $('#iemail').val();
-        const password = $('#isenha').val();
+        const email = $('#iemail').val().trim();
+        const senha = $('#isenha').val().trim();
     
-        $.post('/api/login', { email, password })
-        .done((response) => {
-            alert(response.message);
-            window.location.href = '/';
-        })
-        .fail((error) => {
-            alert(error.responseJSON.error);
+        // Verifica se os campos não estão vazios
+        if (!email || !senha) {
+            alert('Por favor, preencha todos os campos.');
+            return;
+        }
+    
+        // Faz a requisição para o servidor
+        $.ajax({
+            url: 'http://localhost:3500/api/login',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ email, senha }),
+            success: function (response) {
+                alert(response.message); // Exibe mensagem de sucesso
+                window.location.href = '/home.html'; // Redireciona para a página de destino
+            },
+            error: function (xhr, status, error) {
+                const response = xhr.responseJSON || { error: 'Erro desconhecido' };
+                alert(response.error); // Exibe mensagem de erro
+            },
         });
     });
     
+    
+    // Função para carregar a tela de cadastro
     $('#cadastro-button').on('click', function () {
         window.location.href = '/cadastro.html';
     });

@@ -18,6 +18,7 @@ const writeUsersToFile = (users) => {
     fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
 };
 
+// Função para validar inputs; nome, email e senha e salva no arquivo JSON
 const registerUser = (req, res) => {
     const { nome, email, senha } = req.body;
 
@@ -42,11 +43,35 @@ const registerUser = (req, res) => {
     // Salvar no arquivo JSON
     writeUsersToFile(users);
 
+    // Printa os dados do usuário cadastrado no console
     console.log('Usuário cadastrado:', newUser);
 
     res.status(201).json({ message: 'Usuário registrado com sucesso!' });
 };
 
+// Função para logar usuários
+const loginUser = (req, res) => {
+    const { email, password } = req.body;
+
+    // Verifica se o arquivo de usuários existe
+    if (!fs.existsSync(usersFilePath)) {
+        return res.status(404).json({ error: 'Nenhum usuário encontrado.' });
+    }
+
+    const users = JSON.parse(fs.readFileSync(usersFilePath));
+
+    // Verifica se o email e a senha correspondem a um usuário
+    const user = users.find(user => user.email === email && user.senha === password);
+
+    if (!user) {
+        return res.status(401).json({ error: 'Email ou senha incorretos.' });
+    }
+
+    return res.status(200).json({ message: 'Login bem-sucedido!' });
+};
+
+
 module.exports = {
     registerUser,
+    loginUser,
 };
