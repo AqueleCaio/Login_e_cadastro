@@ -16,7 +16,7 @@ $(document).ready(() => {
     
         const email = $('#iemail').val().trim();
         const senha = $('#isenha').val().trim();
-    
+
         // Verifica se os campos não estão vazios
         if (!email || !senha) {
             alert('Por favor, preencha todos os campos.');
@@ -31,7 +31,7 @@ $(document).ready(() => {
             data: JSON.stringify({ email, senha }),
             success: function (response) {
                 alert(response.message); // Exibe mensagem de sucesso
-                window.location.href = '/home.html'; // Redireciona para a página de destino
+                // window.location.href = '/home.html'; // Redireciona para a página de destino
             },
             error: function (xhr, status, error) {
                 const response = xhr.responseJSON || { error: 'Erro desconhecido' };
