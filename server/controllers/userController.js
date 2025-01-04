@@ -18,7 +18,7 @@ const writeUsersToFile = (users) => {
     fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
 };
 
-// Função para validar inputs; nome, email e senha e salva no arquivo JSON
+// Função para registrar um novo usuário e validar os inputs; nome, email e senha
 const registerUser = (req, res) => {
     const { nome, email, senha } = req.body;
 

@@ -10,7 +10,23 @@ $(document).ready(() => {
         let dataLinha = $(e.target).data('linha'); 
         $('#' + dataLinha).removeClass('linha_destaque'); 
     });
-    
+
+
+    $('#toggle-visibility').on('click', function () {
+        const passwordInput = $('#isenha');
+        const icon = $(this).find('img');
+
+        if (passwordInput.attr('type') === 'password') {
+            passwordInput.attr('type', 'text'); // Torna a senha visível
+            icon.attr('src', '/imagens/olho-aberto.png'); // Atualiza para o ícone de "olho fechado"
+        } else {
+            passwordInput.attr('type', 'password'); // Torna a senha invisível
+            icon.attr('src', '/imagens/olho-fechado.png'); // Atualiza para o ícone de "olho aberto"
+        }
+    });
+
+
+    // Função para enviar os dados do formulário de cadastro para o servidor
     $('#form-cadastro').on('submit', function (e) {
         e.preventDefault();
     

@@ -11,6 +11,19 @@ $(document).ready(() => {
         $('#' + dataLinha).removeClass('linha_destaque'); 
     });
 
+    $('#toggle-visibility').on('click', function () {
+        const passwordInput = $('#isenha');
+        const icon = $(this).find('img');
+
+        if (passwordInput.attr('type') === 'password') {
+            passwordInput.attr('type', 'text'); // Torna a senha visível
+            icon.attr('src', '/imagens/olho-aberto.png'); // Atualiza para o ícone de "olho fechado"
+        } else {
+            passwordInput.attr('type', 'password'); // Torna a senha invisível
+            icon.attr('src', '/imagens/olho-fechado.png'); // Atualiza para o ícone de "olho aberto"
+        }
+    });
+
     $('#form-login').on('submit', function (e) {
         e.preventDefault();
     

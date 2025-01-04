@@ -12,6 +12,19 @@ body{
     font-family: Arial, Helvetica, sans-serif;
 }
 
+#toggle-visibility{
+    position: absolute;
+    top: 42%;
+    right: 46%;
+    width: 30px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 50%;
+    border: 0px solid black;
+    cursor: pointer;
+}
+
+
 .imagem{
     position: absolute;
     left: 88%;
@@ -66,23 +79,24 @@ main{
 }
 
 main > .content form label{
-    margin: 10px;
+    margin: 13px;
     user-select: none;
 }
 
-main > .content form #isenha, 
-main > .content form #iemail{
+/* Estilização geral dos inputs */
+input {
     width: 85%;
     height: 35px;
     border-radius: 10px;
     border: 0px solid rgba(0, 0, 0, 0.863);
     outline: none;
+    box-shadow: none;
     padding-left: 4px;
     margin: 5px 0 5px 0;
     background-color: transparent;
 }
 
-main > .content button{
+.opcoes{
     width: 95%;
     height: 40px;
     border-radius: 5px;
@@ -97,7 +111,7 @@ main > .content button{
     transition: .4s;
 }
 
-main > .content button:hover{
+.opcoes:hover{
     cursor: pointer;
     background-color: rgb(255, 209, 3);
     box-shadow: 0px 0px 20px 10px rgb(255, 208, 0);
@@ -146,6 +160,10 @@ hr{
         top: 30%;
     }
 
+    #toggle-visibility{
+        top: 46%;
+    }
+
     main{
         background-color: rgba(255, 255, 255, 0.137);
         width: 750px;
@@ -170,6 +188,11 @@ hr{
 
     .imagem{
         display: none;
+    }
+
+    #toggle-visibility{
+        top: 46%;
+        right: 15%;
     }
 
     .content{
