@@ -25,37 +25,68 @@ $(document).ready(() => {
         }
     });
 
+    function showMessage(type, message) {
+        const $message = type === 'success' ? $('#success-message') : $('#error-message');
+        const duration = type === 'success' ? 5000 : 20000; // Tempo em ms
 
-    // Função para enviar os dados do formulário de cadastro para o servidor
-    $('#form-cadastro').on('submit', function (e) {
-        e.preventDefault();
-    
+        // Define o texto, aplica estilos e exibe o elemento com fade-in
+        $message.text(message).css('opacity', 1).fadeIn(500);
+
+        // Desaparece automaticamente para mensagens de sucesso
+        if (type === 'success') {
+            setTimeout(() => {
+                $message.fadeOut(500, function () {
+                    $(this).css('opacity', 0).text('');
+                });
+            }, duration);
+        }
+    }
+
+    $('#cadastrar').on('click', function (event) {
+        event.preventDefault(); // Evita comportamento padrão do botão
+
+        // Coleta os dados do formulário
         const nome = $('#inome').val();
         const email = $('#iemail').val();
         const senha = $('#isenha').val();
-    
+
+        // Envia a requisição para o servidor
         $.ajax({
             url: 'http://localhost:3500/api/register',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ nome, email, senha }),
             success: function (response) {
-                alert(response.message); // Exibe mensagem de sucesso
+                // Exibe mensagem de sucesso
+                $('#form-cadastro').find('input').css('border-color', 'green');
+                showMessage('success', response.message);
 
-                //Apaga os campos preenchidos
+                // Limpa os campos do formulário
                 $('#inome').val('');
                 $('#iemail').val('');
                 $('#isenha').val('');
             },
-            error: function (xhr, status, error) {
-                const response = xhr.responseJSON || { error: 'Erro desconhecido' };
-                alert(response.error); // Exibe mensagem de erro
+            error: function (xhr) {
+                // Processa erros retornados pelo servidor
+                const errorResponse = xhr.responseJSON;
+                if (errorResponse && errorResponse.error) {
+                    $('#form-cadastro').find('input').css('border-color', 'red');
+                    showMessage('error', errorResponse.error);
+                }
             },
         });
     });
-        
     
+    // Oculta mensagens de erro ao começar a digitar
+    $('#form-cadastro input').on('input', function () {
+        $('#error-message').fadeOut(500, function () {
+            $(this).css('opacity', 0).text('');
+        });
+    });
+    
+    // Função para carregar a tela de login
     $('#login-button').on('click', function () {
         window.location.href = '/';
     });
+
 });

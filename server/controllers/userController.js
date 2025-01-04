@@ -17,8 +17,7 @@ const readUsersFromFile = () => {
 const writeUsersToFile = (users) => {
     fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
 };
-
-// Função para registrar um novo usuário e validar os inputs; nome, email e senha
+// Função para registrar um novo usuário e validar os inputs: nome, email e senha
 const registerUser = (req, res) => {
     const { nome, email, senha } = req.body;
 
@@ -27,13 +26,38 @@ const registerUser = (req, res) => {
         return res.status(400).json({ error: 'Todos os campos são obrigatórios!' });
     }
 
+    // Validação do e-mail
+    const validDomains = ['gmail', 'hotmail', 'yahoo', 'outlook'];
+    const emailParts = email.split('@');
+
+    if (emailParts.length !== 2 || !emailParts[1].includes('.')) {
+        return res.status(400).json({ error: 'E-mail inválido!' });
+    }
+
+    const domain = emailParts[1].split('.')[0]; // Parte entre o @ e o primeiro .
+    if (!validDomains.includes(domain)) {
+        return res.status(400).json({ error: `E-mail inválido!` });
+    }
+
+    // Validação do nome
+    const nomeRegex = /^[a-zA-Z0-9]+\s[a-zA-Z0-9]+$/;
+    if (!nomeRegex.test(nome)) {
+        return res.status(400).json({ error: 'Deve conter sobrenome sem caracteres especiais.' });
+    }
+
     // Ler os usuários existentes
     const users = readUsersFromFile();
 
     // Verificar se o e-mail já está registrado
-    const existingUser = users.find(user => user.email === email);
+    const existingUser = users.find(user => user.email.toLowerCase() === email.toLowerCase());
     if (existingUser) {
-        return res.status(409).json({ error: 'E-mail já registrado!' });
+        return res.status(409).json({ error: 'Este e-mail já está registrado!' });
+    }
+
+    // Verificar se o nome já está registrado
+    const existingUserName = users.find(user => user.nome.toLowerCase() === nome.toLowerCase());
+    if (existingUserName) {
+        return res.status(409).json({ error: 'Este nome já está registrado!' });
     }
 
     // Adicionar o novo usuário
@@ -45,6 +69,7 @@ const registerUser = (req, res) => {
 
     res.status(201).json({ message: 'Usuário registrado com sucesso!' });
 };
+
 
 // Função para validar inputs; email e senha e autentica o usuário
 const loginUser = (req, res) => {

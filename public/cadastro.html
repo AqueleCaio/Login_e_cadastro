@@ -29,6 +29,7 @@
                 <h2>Crie uma conta para continuar.</h2>
             </header>
             <form id="form-cadastro" action="#" method="post" autocomplete="off">
+                
                 <!--Input Nome-->
                 <label for="nome">
                     <img src="/imagens/icons8-usuário-de-gênero-neutro-24.png" alt="icone do perfil" data-linha="linha01">
@@ -40,7 +41,7 @@
                 <label for="email">
                     <img src="/imagens/icons8-mensagem-24.png" alt="icone de envelope" data-linha="linha02">
                 </label>
-                <input type="email" name="email" id="iemail" maxlength="35" placeholder=" Email" data-linha="linha02">
+                <input name="email" id="iemail" maxlength="35" placeholder=" Email" data-linha="linha02">
                 <hr id="linha02">
 
                 <!--Input Senha-->
@@ -54,10 +55,13 @@
                 <hr id="linha03">
 
                 <button class="opcoes" id="cadastrar" type="submit">Cadastrar</button>
+
             </form>
             <button class="opcoes" id="login-button">Login</button>
         </section>
     </main>
+    <p class="aviso" id="success-message"></p>
+    <p class="aviso" id="error-message"></p>
 
 </body>
 

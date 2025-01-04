@@ -29,12 +29,6 @@ $(document).ready(() => {
     
         const email = $('#iemail').val().trim();
         const senha = $('#isenha').val().trim();
-
-        // Verifica se os campos não estão vazios
-        if (!email || !senha) {
-            alert('Por favor, preencha todos os campos.');
-            return;
-        }
     
         // Faz a requisição para o servidor
         $.ajax({
