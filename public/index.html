@@ -14,6 +14,9 @@
 </head>
 <body>
 
+    <p class="aviso" id="success-message"></p>
+    <p class="aviso" id="error-message"></p>
+
     <main>
         <section  class="imagem">
             <img src="/imagens/figura_animada_amarelo.svg" alt="Imagem ao lado do fomulário">
@@ -24,18 +27,19 @@
                 <h1>Login</h1>
                 <h2>Faça login para continuar.</h2>
             </header>
+
             <form id="form-login" action="#" method="post" autocomplete="off">
 
                 <!--Input Email-->
                 <label for="iemail"><img src="/imagens/icons8-mensagem-24.png" alt="icone do perfil"></label>
-                <input type="email" id="iemail" maxlength="35" placeholder="Email" data-linha="linha01">
+                <input type="email" id="iemail" placeholder="Email" data-linha="linha01">
                 <hr id="linha01">
 
                 <!--Input Senha-->
                 <label for="isenha">
                     <img src="/imagens/icons8-trancar-24.png" alt="icone de senha">
                 </label>
-                <input type="password" id="isenha" minlength="8" maxlength="20" placeholder="Senha (8-20)" data-linha="linha02">
+                <input type="password" id="isenha" placeholder="Senha (8-20)" data-linha="linha02">
                 <hr id="linha02">
                 
 
@@ -45,8 +49,6 @@
                 
                 <button class="opcoes" id="entrar" type="submit">Entrar</button>
 
-                <p id="success-message"></p>
-                <p id="error-message"></p>
             </form>
 
             <button class="opcoes" id="cadastro-button">Cadastrar</button>

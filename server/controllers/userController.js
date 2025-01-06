@@ -26,6 +26,11 @@ const registerUser = (req, res) => {
         return res.status(400).json({ error: 'Todos os campos são obrigatórios!' });
     }
 
+    // Validação do tamanho da senha
+    if(senha.length < 8){
+        return res.status(400).json({ error: 'Senha deve conter no mínimo 8 caracteres!' });
+    } 
+
     // Validação do e-mail
     const validDomains = ['gmail', 'hotmail', 'yahoo', 'outlook'];
     const emailParts = email.split('@');
@@ -70,11 +75,33 @@ const registerUser = (req, res) => {
     res.status(201).json({ message: 'Usuário registrado com sucesso!' });
 };
 
-
-// Função para validar inputs; email e senha e autentica o usuário
+// Função para fazer login de usuários e validar os inputs: email e senha
 const loginUser = (req, res) => {
     try {
-        const { email, senha } = req.body; 
+        const { email, senha } = req.body;
+
+        // Validação de campos obrigatórios
+        if (!email || !senha) {
+            return res.status(400).json({ error: 'Todos os campos são obrigatórios!' });
+        }
+
+        // Validação do tamanho da senha
+        if(senha.length < 8){
+            return res.status(400).json({ error: 'Senha deve conter no mínimo 8 caracteres!' });
+        } 
+
+        // Validação do email
+        const validDomains = ['gmail', 'hotmail', 'yahoo', 'outlook'];
+        const emailParts = email.split('@');
+
+        if (emailParts.length !== 2 || !emailParts[1].includes('.')) {
+            return res.status(400).json({ error: 'E-mail inválido!' });
+        }
+
+        const domain = emailParts[1].split('.')[0];
+        if (!validDomains.includes(domain)) {
+            return res.status(400).json({ error: `E-mail inválido!` });
+        }
 
         // Verifica se o arquivo de usuários existe
         if (!fs.existsSync(usersFilePath)) {
@@ -84,17 +111,33 @@ const loginUser = (req, res) => {
         const usersData = fs.readFileSync(usersFilePath, 'utf-8');
         const users = JSON.parse(usersData);
 
-        // Verifica se o email e a senha correspondem a um usuário
-        const user = users.find(user => user.email === email && user.senha === senha);
+        // Verificar se existe o email
+        const userByEmail = users.find(user => user.email === email);
 
-        if (!user) {
-            console.warn('Usuário não encontrado ou senha incorreta.');
-            return res.status(401).json({ error: 'Email ou senha incorretos.' });
+        // Verificar se existe a senha
+        const userBySenha = users.find(user => user.senha === senha);
+
+        if (userByEmail && userBySenha) {
+            // Verifica se o email e senha correspondem ao mesmo usuário
+            const user = users.find(user => user.email === email && user.senha === senha);
+            if (user) {
+                return res.status(200).json({ message: 'Login bem-sucedido!' });
+            }
         }
 
-        return res.status(200).json({ message: 'Login bem-sucedido!' });
+        // Mensagens de erro específicas
+        if (userByEmail && !userBySenha) {
+            return res.status(401).json({ error: 'Senha incorreta.' });
+        }
+
+        if (!userByEmail && userBySenha) {
+            return res.status(401).json({ error: 'Email incorreto.' });
+        }
+
+        return res.status(401).json({ error: 'Email ou senha incorretos.' });
 
     } catch (error) {
+        console.error('Erro no servidor:', error);
         return res.status(500).json({ error: 'Erro no servidor. Tente novamente mais tarde.' });
     }
 };

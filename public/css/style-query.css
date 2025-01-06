@@ -96,6 +96,28 @@ input {
     background-color: transparent;
 }
 
+.aviso {
+    width: 20%;
+    margin: 1.6rem auto;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bolder;
+    opacity: 0; /* Início transparente */
+    transition: opacity .5s ease-in-out; /* Fade-in/out suave */
+}
+
+#success-message {
+    background-color: rgba(0, 128, 0, 0.733);
+    color: white;
+}
+
+#error-message {
+    background-color: rgba(255, 0, 0, 0.747);
+    color: white;
+}
+
 .opcoes{
     width: 95%;
     height: 40px;

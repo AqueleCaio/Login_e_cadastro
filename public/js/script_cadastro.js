@@ -39,6 +39,12 @@ $(document).ready(() => {
                     $(this).css('opacity', 0).text('');
                 });
             }, duration);
+        } else {
+            setTimeout(() => {
+                $message.fadeOut(2000, function () {
+                    $(this).css('opacity', 0).text('');
+                });
+            }, duration);
         }
     }
 
