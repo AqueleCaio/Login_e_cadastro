@@ -2,9 +2,16 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/userRoutes');
+const fs = require('fs');
 
 const app = express();
 const PORT = 3500;
+
+app.use(express.json());
+
+//middleware para interpretar JSON no corpo da requisição
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Configurar para servir arquivos estáticos
 app.use(express.static(path.join(__dirname, '../public')));
