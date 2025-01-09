@@ -46,23 +46,24 @@ img{
 }
 
 header{
-    margin: 10px
-}
 
-header > h1{
-    text-align: center;
-    font-size: 18pt;
-    padding: 10px 0px 15px 0px;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.26);
-}
+    margin: 10px;
 
-header h2{
-    text-align: center;
-    font-size: 11pt;
-    text-indent: 2em;
-    padding-bottom: 20px;
-    line-height: 1.5em;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.342);
+    & h1{
+        text-align: center;
+        font-size: 18pt;
+        padding: 10px 0px 15px 0px;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.26);
+    }
+
+    & h2{
+        text-align: center;
+        font-size: 11pt;
+        text-indent: 2em;
+        padding-bottom: 20px;
+        line-height: 1.5em;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.342);
+    }
 }
 
 main{
@@ -90,15 +91,12 @@ main{
     width: 100%;
 }
 
-main > .content form label{
+form label{
     margin: 10px;
     user-select: none;
 }
 
-main > .content form #iemail, 
-main > .content form #inome, 
-main > .content form #iusername, 
-main > .content form #isenha{
+input{
     width: 85%;
     height: 35px;
     border-radius: 10px;
@@ -184,10 +182,7 @@ hr{
         color: rgba(0, 0, 0, 0.699);
     }
 
-    main > .content form #iemail, 
-    main > .content form #inome, 
-    main > .content form #iusername, 
-    main > .content form #isenha{
+    input{
         width: 90%;
     }
 
@@ -208,10 +203,7 @@ hr{
         width: 320px;
     }
 
-    main > .content form #iemail, 
-    main > .content form #inome, 
-    main > .content form #iusername, 
-    main > .content form #isenha{
+    input{
         width: 80%;
     }
 }

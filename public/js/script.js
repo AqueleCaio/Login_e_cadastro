@@ -67,7 +67,8 @@ $(document).ready(() => {
                 $('#form-login').find('input').css('border-color', 'green');
                 showMessage('success', response.message);
 
-                // window.location.href = '/home.html'; // Redireciona para a página de destino
+                //Redirecionar para a página principal
+                // ...
             },
             error: function (xhr, status, error) {
                 // Processa erros retornados pelo servidor
