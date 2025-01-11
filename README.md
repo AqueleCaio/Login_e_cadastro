@@ -2,7 +2,7 @@
 
 Este projeto consiste em uma aplicação web com **telas de cadastro e login responsivas**. A aplicação conta com:
 
-- Um **servidor estruturado em JavaScript**.
+- Um **servidor estruturado em Node.js e Javascript**.
 - Um **banco de dados** para armazenar os usuários cadastrados.
 - Funcionalidades front-end interativas e otimizadas para diferentes dispositivos.
 - Interação entre o back-end e front-end.
